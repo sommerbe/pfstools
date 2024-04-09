@@ -33,7 +33,7 @@
 #include <getopt.h>
 #include <pfs.h>
 
-#include <opencv2/opencv.hpp>
+//#include <opencv2/opencv.hpp>
 
 #define PROG_NAME "pfsinimgmagick"
 
