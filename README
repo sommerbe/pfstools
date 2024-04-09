@@ -1,3 +1,9 @@
+pfstools 2.2.1 <09.04.2024> (unofficial)
+
+This is a bug-fix release.
+
+	* Fixed: compilation fails a) with ImageMagick7, b) without OpenCV; fix is limited to LDR (HDR unknown)
+
 pfstools 2.2.0 <12.08.2021>
 
 This is mostly a bug-fix release with many fixes allowing to work with newer version of libraries. Several compilation issues have been resolved on Ubuntu 18.04, 20.04 and Cygwin. The HDR merging (pfshdrcalibrate) uses now better, noise-optimal weights, which should reduce noise for darker image parts.
