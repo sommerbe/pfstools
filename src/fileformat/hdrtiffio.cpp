@@ -77,8 +77,8 @@ HDRTiffReader::HDRTiffReader( const char* filename )
   if(!TIFFGetFieldDefaulted(tif, TIFFTAG_PHOTOMETRIC, &phot))
     throw pfs::Exception("TIFF: unspecified photometric type");
 
-  uint16 * extra_sample_types=0;
-  uint16 extra_samples_per_pixel=0;
+  uint16_t * extra_sample_types=0;
+  uint16_t extra_samples_per_pixel=0;
   switch(phot)
   {
     case PHOTOMETRIC_LOGLUV:
@@ -177,25 +177,25 @@ void HDRTiffReader::readImage( pfs::Array2D *X, pfs::Array2D *Y, pfs::Array2D *Z
   //--- scanline buffer with pointers to different data types
   union {
     float* fp;
-    uint16* wp;
-    uint8* bp;
+    uint16_t* wp;
+    uint8_t* bp;
     void* vp;
   } buf;
 
   //--- image length
-  uint32 imagelength;
+  uint32_t imagelength;
   TIFFGetField(tif, TIFFTAG_IMAGELENGTH, &imagelength);
   DEBUG_STR << "Image length: " << imagelength << endl;
 
   //--- image scanline size
-  uint32 scanlinesize = TIFFScanlineSize(tif);
+  uint32_t scanlinesize = TIFFScanlineSize(tif);
   buf.vp = _TIFFmalloc(scanlinesize);
 //    DEBUG_STR << "Scanline size: " << scanlinesize << endl;
 
 
   //--- read scan lines
   const int image_width = X->getCols();
-  for(uint32 row = 0; row < imagelength; row++)
+  for(uint32_t row = 0; row < imagelength; row++)
   {
     switch(TypeOfData)
     {

@@ -35,13 +35,13 @@
 class HDRTiffReader
 {
   TIFF* tif;
-  uint32 width, height;
+  uint32_t width, height;
 
-  uint16 comp;                  /// compression type
-  uint16 phot;                  /// type of photometric data
+  uint16_t comp;                  /// compression type
+  uint16_t phot;                  /// type of photometric data
   enum {FLOAT, WORD, BYTE, GRAYSCALE16} TypeOfData;
-  uint16 bps;                   /// bits per sample
-  uint16 nSamples;              /// number of channels in tiff file (only 1-3 are used)
+  uint16_t bps;                   /// bits per sample
+  uint16_t nSamples;              /// number of channels in tiff file (only 1-3 are used)
   double stonits;               /// scale factor to get nit values
 
   bool exponential_mode;        /// if true, grayscale data come from LarsIII camera
