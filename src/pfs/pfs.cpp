@@ -333,7 +333,7 @@ public:
 // Map of channels
 //------------------------------------------------------------------------------
 
-struct str_cmp: public std::binary_function<const char*,const char*,bool>
+struct str_cmp
 {
   bool operator()(const char* s1, const char* s2) const
   {
