@@ -1,3 +1,13 @@
+main branch (unofficial):
+
+	* Compile: removed deprecated warning by using [u]int(8|16|32)_t instead of [u]int(8|16|32) declared as deprecated with TIFF_VERSION_CLASSIC 42
+	* Compile: works with OpenCV and ImageMagick7
+	* Compile: fixed CMake deprecation by moving to CMake 3.0...
+
+pfstools 2.2.1 <09.04.2024> (unofficial)
+
+	* Fixed: compilation fails a) with ImageMagick7, b) without OpenCV; fix is limited to LDR (HDR unknown)
+
 pfstools 2.2.0 <12.08.2021>
 	* Added: v210 format in pfsinyuv
 	* Fixed: memleak in pfssize
