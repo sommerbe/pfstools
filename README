@@ -1,16 +1,28 @@
-main branch:
+
+# Changelog
+
+## main branch:
+
+## pfstools 2.2.2 <20250118> (unofficial)
+
+This release fixes some build issues.
 
 	* Compile: removed deprecated warning by using [u]int(8|16|32)_t instead of [u]int(8|16|32) declared as deprecated with TIFF_VERSION_CLASSIC 42
 	* Compile: works with OpenCV and ImageMagick7
-	* Compile: fixed CMake deprecation by moving to CMake 3.0...
+	* Compile: fixed CMake deprecation by moving to CMake 3.20...
+	* Compile: fixed GCC warning: sign-compare
 
-pfstools 2.2.1 <09.04.2024> (unofficial)
+Released by: Benjamin Sommer
+
+## pfstools 2.2.1 <20240409> (unofficial)
 
 This is a bug-fix release.
 
 	* Fixed: compilation fails a) with ImageMagick7, b) without OpenCV; fix is limited to LDR (HDR unknown)
 
-pfstools 2.2.0 <12.08.2021>
+Released by: Benjamin Sommer
+
+## pfstools 2.2.0 <12.08.2021>
 
 This is mostly a bug-fix release with many fixes allowing to work with newer version of libraries. Several compilation issues have been resolved on Ubuntu 18.04, 20.04 and Cygwin. The HDR merging (pfshdrcalibrate) uses now better, noise-optimal weights, which should reduce noise for darker image parts.
 
@@ -31,7 +43,7 @@ This is mostly a bug-fix release with many fixes allowing to work with newer ver
 	* Added: pfsindcraw now calls libraw's dcraw_emu instead of dcraw if the former is available
 
 
-pfstools - README 
+# pfstools - README 
 -------------------------------------------------------------------     
 
 For issues related to Ubuntu installation - see README.Ubuntu
