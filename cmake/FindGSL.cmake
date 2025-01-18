@@ -98,26 +98,26 @@ ELSE(WIN32)
       SET(GSL_CXX_FLAGS "`${GSL_CONFIG} --cflags`")
       
       # set INCLUDE_DIRS to prefix+include
-      EXEC_PROGRAM(${GSL_CONFIG}
-        ARGS --prefix
-        OUTPUT_VARIABLE GSL_PREFIX)
+      EXECUTE_PROCESS(COMMAND ${GSL_CONFIG} --prefix
+        OUTPUT_VARIABLE GSL_PREFIX
+	OUTPUT_STRIP_TRAILING_WHITESPACE)
       SET(GSL_INCLUDE_DIR ${GSL_PREFIX}/include CACHE STRING INTERNAL)
 
       # set link libraries and link flags
       #SET(GSL_LIBRARIES "`${GSL_CONFIG} --libs`")
-      EXEC_PROGRAM(${GSL_CONFIG}
-        ARGS --libs
-        OUTPUT_VARIABLE GSL_LIBRARIES )
-        
+      EXECUTE_PROCESS(COMMAND ${GSL_CONFIG} --libs
+        OUTPUT_VARIABLE GSL_LIBRARIES
+	OUTPUT_STRIP_TRAILING_WHITESPACE)
+      
       # extract link dirs for rpath  
-      EXEC_PROGRAM(${GSL_CONFIG}
-        ARGS --libs
-        OUTPUT_VARIABLE GSL_CONFIG_LIBS )
+      EXECUTE_PROCESS(COMMAND ${GSL_CONFIG} --libs
+        OUTPUT_VARIABLE GSL_CONFIG_LIBS
+	OUTPUT_STRIP_TRAILING_WHITESPACE)
       
       # extract version
-      EXEC_PROGRAM(${GSL_CONFIG}
-        ARGS --version
-        OUTPUT_VARIABLE GSL_FULL_VERSION )
+      EXECUTE_PROCESS(COMMAND ${GSL_CONFIG} --version
+        OUTPUT_VARIABLE GSL_FULL_VERSION
+	OUTPUT_STRIP_TRAILING_WHITESPACE)
       
       # split version as major/minor
       STRING(REGEX MATCH "(.)\\..*" GSL_VERSION_MAJOR_ "${GSL_FULL_VERSION}")
