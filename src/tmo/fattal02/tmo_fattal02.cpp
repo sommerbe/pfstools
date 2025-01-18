@@ -339,7 +339,8 @@ void tmo_fattal02(unsigned int width, unsigned int height,
      MSIZE=8;         
 
   int size = width*height;
-  int x,y,i,k;
+  int i,k;
+  unsigned int x,y;
 
   // find max & min values, normalize to range 0..100 and take logarithm
   float minLum = (*Y)(0,0);
@@ -391,12 +392,12 @@ void tmo_fattal02(unsigned int width, unsigned int height,
   // side accordingly (basically fft solver assumes U(-1) = U(1), whereas zero
   // Neumann conditions assume U(-1)=U(0)), see also divergence calculation
   if(fftsolver)
-    for( y=0 ; y<(int)height ; y++ )
-      for( x=0 ; x<(int)width ; x++ )
+    for( y=0 ; y<height ; y++ )
+      for( x=0 ; x<width ; x++ )
       {
         // sets index+1 based on the boundary assumption H(N+1)=H(N-1)
-        int yp1 = (y+1 >= (int)height ? height-2 : y+1);
-        int xp1 = (x+1 >= (int)width ?  width-2  : x+1);
+        int yp1 = (y+1 >= height ? height-2 : y+1);
+        int xp1 = (x+1 >= width ?  width-2  : x+1);
         // forward differences in H, so need to use between-points approx of FI
         (*Gx)(x,y) = ((*H)(xp1,y)-(*H)(x,y)) * 0.5*((*FI)(xp1,y)+(*FI)(x,y));
         (*Gy)(x,y) = ((*H)(x,yp1)-(*H)(x,y)) * 0.5*((*FI)(x,yp1)+(*FI)(x,y));

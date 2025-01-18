@@ -69,7 +69,7 @@ bool read_yuv_channel( FILE *fh, int width, int height, int stride, pfs::Array2D
     return false;
   }
       
-    if( read != width ) {
+    if( read != size_t(width) ) {
       delete [] line_buf;
       throw pfs::Exception( "Error when reading Yuv file" );
     }
@@ -236,7 +236,7 @@ bool contains(std::string s1, std::string s2){
 
 
 //returns a vector of strings tokenized 
-std::vector<std::string> split(std::string s, std::string delim){
+std::vector<std::string> split(){
   return std::vector<std::string>();
 }
 
@@ -431,7 +431,7 @@ class QuietException
 
 void printHelp()
 {
-  std::cerr << PROG_NAME " [--verbose] [--quiet] [--width] [--height] [--colorspace] [--no-guess] [--chroma-format] [--bit-depth] [--frames] [--help]" << std::endl
+  std::cerr << PROG_NAME " [--verbose] [--width] [--height] [--colorspace] [--no-guess] [--chroma-format] [--bit-depth] [--frames] [--help]" << std::endl
             << "See man page for more information." << std::endl;
 }
 
@@ -441,7 +441,7 @@ void readFrames( int argc, char* argv[] )
   pfs::DOMIO pfsio;
 
   bool verbose = false;
-  bool quiet = false;
+  //bool quiet = false;
   bool opt_noguess = false;
   int opt_width = -1;
   int opt_height = -1;
@@ -462,7 +462,7 @@ void readFrames( int argc, char* argv[] )
     { "height", required_argument, NULL, 'h' },
     { "bit-depth", required_argument, NULL, 'b' },
     { "colorspace", required_argument, NULL, 'c' },           
-    { "quiet", no_argument, NULL, 'q' },
+    //{ "quiet", no_argument, NULL, 'q' },
     { "no-guess", no_argument, NULL, 'n'},
     { "fps", required_argument, NULL, 'f'},
     { "chroma-format", required_argument, NULL, 's'},
@@ -522,9 +522,9 @@ void readFrames( int argc, char* argv[] )
         throw pfs::Exception( "Unrecognized colorspace name" );
       }
       break;
-    case 'q':
-      quiet = true;
-      break;
+    //case 'q':
+    //  quiet = true;
+    //  break;
     case '?':
       throw QuietException();
     case ':':
@@ -596,6 +596,7 @@ void readFrames( int argc, char* argv[] )
     case pfs::CS_HLGYCbCr2020:
       VERBOSE_STR << "colorspace: HDR HLG BT2020" << std::endl;
       break;
+    default:break;
   }
 
   if( width <= 0 || height <= 0 )
@@ -661,6 +662,7 @@ void readFrames( int argc, char* argv[] )
       case pfs::CS_HLGYCbCr2020:
         frame->getTags()->setString("LUMINANCE", "ABSOLUTE");
         break;
+      default:break;
     }
 
     if( fps > 0 ){

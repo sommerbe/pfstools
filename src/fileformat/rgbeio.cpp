@@ -271,8 +271,9 @@ void readRadiance( FILE *file, int width, int height, float exposure,
     if( header[0] != 2 || header[1] != 2 || (header[2]<<8) + header[3] != width )
     {
       //--- simple scanline (not rle)
-      size_t rez = fread(scanline+4, sizeof(Trgbe), 4*width-4, file);
-      if( rez!=4*width-4 )
+      size_t sz = 4*width-4;
+      size_t rez = fread(scanline+4, sizeof(Trgbe), sz, file);
+      if( rez!=sz )
       {
 	DEBUG_STR << "RGBE: scanline " << y
 		  << "(" << (int)rez << "/" << width << ")" <<endl;

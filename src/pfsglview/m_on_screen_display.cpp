@@ -56,7 +56,7 @@ M_OnScreenDisplay::M_OnScreenDisplay(std::string* s, int row_count) : Module() {
 	this->row_count = row_count ;
 	max_row_length = 0 ;
 	for(int i=0; i < row_count; i++){
-		if(max_row_length < text[i].length()) max_row_length = text[i].length() ;
+		if(max_row_length < (int)text[i].length()) max_row_length = text[i].length() ;
 	}
 }
 

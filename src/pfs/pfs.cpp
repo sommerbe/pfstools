@@ -93,7 +93,7 @@ public:
   {
     const string &tag = *(it++);
     size_t equalSign = tag.find( '=' );
-    assert( equalSign != -1 );
+    assert( equalSign != tag.npos );
     tagName = string( tag, 0, equalSign );
     return tagName.c_str();
   }
@@ -116,7 +116,7 @@ private:
   TagList tagList;
 
 public:
-
+  virtual ~TagContainerImpl() {}
 //   ~TagContainerImpl()
 //   {
 //     tagList.clear();
@@ -606,7 +606,7 @@ public:
     list<ChannelImpl*>::iterator it;
     for( it = orderedChannel.begin(); it != orderedChannel.end(); it++ ) {
       ChannelImpl *ch = *it;
-      int size = frame->getWidth()*frame->getHeight();
+      size_t size = frame->getWidth()*frame->getHeight();
       read = fread( ch->getRawData(), sizeof( float ), size, inputStream );
       if( read != size )
         throw Exception( "Corrupted PFS file: missing channel data" );

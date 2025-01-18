@@ -335,7 +335,7 @@ void tmo_mantiuk08(int argc, char * argv[])
 	tm_tonecurve.report( "Apply tone-curve" );
 
         if( tc_FH != NULL ) {
-          for( int i=0; i < tc_filt->size; i++ )
+          for( size_t i=0; i < tc_filt->size; i++ )
             fprintf( tc_FH, "%d,%g,%g,%g\n", (int)frame_no, tc_filt->x_i[i], tc_filt->y_i[i], df->inv_display( (float)pow( 10, tc_filt->y_i[i] ) ) );
         }
     

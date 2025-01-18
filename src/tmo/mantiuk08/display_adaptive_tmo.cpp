@@ -115,7 +115,7 @@ inline float safe_log10( float x, const float min_x = MIN_PHVAL, const float max
 float min_positive( const float *x, size_t len )
 {
   float min_val = MAX_PHVAL;
-  for( int k=0; k < len; k++ )
+  for( size_t k=0; k < len; k++ )
     if( unlikely(x[k] < min_val && x[k] > 0) )
       min_val = x[k];
 
@@ -126,8 +126,8 @@ float min_positive( const float *x, size_t len )
 void mult_rows( const gsl_matrix *A, const gsl_vector *b, gsl_matrix *C )
 {
   assert( A->size1 == b->size );
-  for( int j=0; j < A->size2; j++ )
-    for( int i=0; i < A->size1; i++ ) 
+  for( size_t j=0; j < A->size2; j++ )
+    for( size_t i=0; i < A->size1; i++ ) 
       gsl_matrix_set( C, i, j, gsl_matrix_get(A,i,j)*gsl_vector_get(b,i) );        
 }
 
@@ -281,9 +281,9 @@ inline float clamp_channel( const float v )
   
 void print_matrix( gsl_matrix *m )
 {
-  for( int r=0; r < m->size1; r++ ) {
+  for( size_t r=0; r < m->size1; r++ ) {
     fprintf( stderr, "[ " );
-    for( int c=0; c< m->size2; c++ ) {
+    for( size_t c=0; c< m->size2; c++ ) {
       fprintf( stderr, "%g ", gsl_matrix_get( m, r, c ) );
     } 
     fprintf( stderr, "]\n" );
@@ -292,7 +292,7 @@ void print_matrix( gsl_matrix *m )
 
 void print_vector( gsl_vector *v )
 {
-  for( int r=0; r < v->size; r++ ) {
+  for( size_t r=0; r < v->size; r++ ) {
     fprintf( stderr, "[ %g\t ]\n ", gsl_vector_get( v, r ) );
   }
 }  
@@ -1054,7 +1054,7 @@ int datmo_apply_tone_curve( float *R_out, float *G_out, float *B_out, int width,
   
   // Create LUT: log10( lum factor ) -> pixel value
   UniformArrayLUT tc_lut( tc->size, tc->x_i );  
-  for( int i=0; i < tc->size; i++ ) {
+  for( size_t i=0; i < tc->size; i++ ) {
     tc_lut.y_i[i] = df->inv_display( (float)pow( 10, tc->y_i[i] ) );
   }  
 
@@ -1081,14 +1081,14 @@ int datmo_apply_tone_curve_cc( float *R_out, float *G_out, float *B_out, int wid
 { 
   // Create LUT: log10( lum factor ) -> pixel value
   UniformArrayLUT tc_lut( tc->size, tc->x_i );  
-  for( int i=0; i < tc->size; i++ ) {
+  for( size_t i=0; i < tc->size; i++ ) {
     tc_lut.y_i[i] = (float)pow( 10, tc->y_i[i] );
 //    tc_lut.y_i[i] = df->inv_display( (float)pow( 10, tc->y_i[i] ) );
   }  
 
   // Create LUT: log10( lum factor ) -> saturation correction (for the tone-level)
   UniformArrayLUT cc_lut( tc->size, tc->x_i );  
-  for( int i=0; i < tc->size-1; i++ ) {
+  for( size_t i=0; i < tc->size-1; i++ ) {
     const float contrast = std::max( (tc->y_i[i+1]-tc->y_i[i])/(tc->x_i[i+1]-tc->x_i[i]), 0. );
     const float k1 = 1.48;
     const float k2 = 0.82;
@@ -1220,7 +1220,7 @@ datmoToneCurve *datmoTCFilter::filterToneCurve()
   tc_f->init( tc_o->size, tc_o->x_i );
   if( tc_filt_clamp.x_i == NULL )
     tc_filt_clamp.init( tc_o->size, tc_o->x_i );
-  for( int j=0; j < tc_f->size; j++ )
+  for( size_t j=0; j < tc_f->size; j++ )
     tc_f->y_i[j] = 0; 
   
   for( int tt=0; tt < DATMO_TF_TAPSIZE; tt++ ) {
@@ -1231,7 +1231,7 @@ datmoToneCurve *datmoTCFilter::filterToneCurve()
     else
       y = get_tc(ring_buffer_filt,tt);
     
-    for( int j=0; j < tc_f->size; j++ ) {      
+    for( size_t j=0; j < tc_f->size; j++ ) {      
       tc_f->y_i[j] += t_filter_b[tt] * x->y_i[j];
       if( tt > 0 )
         tc_f->y_i[j] -= t_filter_a[tt] * y->y_i[j];
@@ -1241,7 +1241,7 @@ datmoToneCurve *datmoTCFilter::filterToneCurve()
   // Copy to dest array and clamp
   // Note that the clamped values cannot be used for filtering as they
   // would cause too much rippling for the IIR filter
-  for( int j=0; j < tc_f->size; j++ ) {
+  for( size_t j=0; j < tc_f->size; j++ ) {
     if( tc_f->y_i[j] < y_min ) {
       tc_filt_clamp.y_i[j]  = y_min;
     } else if( tc_f->y_i[j] > y_max ) {

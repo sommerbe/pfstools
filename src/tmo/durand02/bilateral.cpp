@@ -97,11 +97,11 @@ void bilateralFilter( const pfstmo::Array2D *I,
   gaussianKernel( &sKernel, sigma_s );
   GaussLookup gauss( sigma_r, 256 );
 
-  for( int y = 0; y < I->getRows(); y++ )
+  for( unsigned int y = 0; y < I->getRows(); y++ )
   {
     progress_cb( y * 100 / I->getRows() );
     
-    for( int x = 0; x < I->getCols(); x++ )
+    for( unsigned int x = 0; x < I->getCols(); x++ )
     {
       float val = 0;
       float k = 0;

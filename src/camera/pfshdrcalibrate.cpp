@@ -269,7 +269,7 @@ void pfshdrcalibrate( int argc, char* argv[] )
 	  /* internal parameters of Mitsunaga & Nayar's method  */
 	case 'p':
 	  mitsunaga_sample_no = (unsigned long)atoll(optarg);
-	  if( mitsunaga_sample_no<10 || mitsunaga_sample_no >= (1 << 31))
+	  if( mitsunaga_sample_no<10 || mitsunaga_sample_no >= size_t(1 << 31))
 	    throw pfs::Exception("too many samples");
 	  break;	  
 
@@ -307,7 +307,7 @@ void pfshdrcalibrate( int argc, char* argv[] )
     if( isalpha(optarg[0]) )
     {
       // Name of a camera, whose noise parameters are known, is provided
-      for( int i = 0; i < sizeof(camera_presets)/sizeof(*camera_presets); i++ )
+      for( size_t i = 0; i < sizeof(camera_presets)/sizeof(*camera_presets); i++ )
         if( strcmp( optarg, camera_presets[i].camera_name ) == 0 )
           camera = &camera_presets[i];
 
@@ -1000,10 +1000,10 @@ opt_saturation_offset = (int) (powf( 2.0f, opt_bpp )*opt_saturation_offset_perc 
   delete[] Ib;
 
   if( opt_luminance )
-    for( int i=0 ; i<imgsY.size() ; i++ )
+    for( size_t i=0 ; i<imgsY.size() ; i++ )
       delete imgsY[i].yi;
   else
-    for( int i=0 ; i<imgsR.size() ; i++ )
+    for( size_t i=0 ; i<imgsR.size() ; i++ )
     {
       delete imgsR[i].yi;
       delete imgsG[i].yi;

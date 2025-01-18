@@ -45,7 +45,7 @@ class QuietException
 
 void printHelp()
 {
-  std::cerr << PROG_NAME " [--linear] [--radiance] [--verbose] [--help]" << std::endl
+  std::cerr << PROG_NAME " [--radiance] [--verbose] [--help]" << std::endl
             << "See man page for more information." << std::endl;
 }
 
@@ -55,17 +55,17 @@ void readFrames( int argc, char* argv[] )
   pfs::DOMIO pfsio;
 
   bool verbose = false;
-  bool opt_linear=false;
+  //bool opt_linear=false;
   bool radiance_compatibility = false;
-  bool quiet = false;
+  //bool quiet = false;
   
   // Parse command line parameters
   static struct option cmdLineOptions[] = {
     { "help", no_argument, NULL, 'h' },
     { "verbose", no_argument, NULL, 'v' },
-    { "linear", no_argument, NULL, 'l' },
+    //{ "linear", no_argument, NULL, 'l' },
 	{ "radiance", no_argument, NULL, 'r' },
-	{ "quiet", no_argument, NULL, 'q' },
+	//{ "quiet", no_argument, NULL, 'q' },
 	{ NULL, 0, NULL, 0 }
   };
   static const char optstring[] = "lhvrq";
@@ -84,16 +84,16 @@ void readFrames( int argc, char* argv[] )
     case 'v':
       verbose = true;
       break;
-	case 'r':
-		radiance_compatibility = true;
-		break;
-	case 'q':
-		quiet = true;
-		break;
-	case 'l':
-      std::cerr << PROG_NAME << " warning: linearize option ignored for an HDR input!"
-                << std::endl;
-      break;
+    case 'r':
+      	radiance_compatibility = true;
+	break;
+	//case 'q':
+	//	quiet = true;
+	//	break;
+	//case 'l':
+      	//std::cerr << PROG_NAME << " warning: linearize option ignored for an HDR input!"
+        //        << std::endl;
+      	//break;
     case '?':
       throw QuietException();
     case ':':

@@ -50,20 +50,20 @@ class QuietException
 
 void printHelp()
 {
-  fprintf( stderr, PROG_NAME " [<html_page_name>] [--quality <1-5>] [--image-dir <directory_name>] [--page-template <template_file>] [--image-template <template_file>] [--object-output <file_name.js>] [--html-output <file_name.html>] [--verbose] [--help]\n"
+  fprintf( stderr, PROG_NAME " [<html_page_name>] [--quality <1-5>] [--image-dir <directory_name>] [--page-template <template_file>] [--image-template <template_file>] [--object-output <file_name.js>] [--html-output <file_name.html>] [--help]\n"
     "See the manual page for more information.\n" );
 }
 
 
 void generate_hdrhtml( int argc, char* argv[] )
 {
-  bool verbose = false;
+  //bool verbose = false;
   int quality = 2;
 
   // Parse command line parameters
   static struct option cmdLineOptions[] = {
     { "help", no_argument, NULL, 'h' },
-    { "verbose", no_argument, NULL, 'v' },
+  //  { "verbose", no_argument, NULL, 'v' },
     { "quality", required_argument, NULL, 'q' },
     { "image-dir", required_argument, NULL, 'd' },
     { "object-output", required_argument, NULL, 'o' },
@@ -88,9 +88,9 @@ void generate_hdrhtml( int argc, char* argv[] )
     case 'h':
       printHelp();
       throw QuietException();
-    case 'v':
-      verbose = true;
-      break;
+    //case 'v':
+    //  verbose = true;
+    //  break;
     case 'q':
       quality = strtol( optarg, NULL, 10 );
       if( quality < 1 || quality > 5 )
@@ -180,18 +180,18 @@ void generate_hdrhtml( int argc, char* argv[] )
         std::string tmp_str( filename );
 
         // Remove extension
-        int dot_pos = tmp_str.find_last_of( '.' );
-        if( dot_pos != std::string::npos & dot_pos > 0 )
+        size_t dot_pos = tmp_str.find_last_of( '.' );
+        if( dot_pos != std::string::npos && dot_pos > 0 )
           tmp_str = tmp_str.substr( 0, dot_pos );
 
         // Remove path
-        int slash_pos = tmp_str.find_last_of( "/\\" );
+        size_t slash_pos = tmp_str.find_last_of( "/\\" );
         if( slash_pos != std::string::npos )
           tmp_str = tmp_str.substr( slash_pos+1, std::string::npos );
         
         // Substitute invalid characters
         while( true ) {
-          int invalid_pos = tmp_str.find_last_of( "-! #@()[]{}`." );
+          size_t invalid_pos = tmp_str.find_last_of( "-! #@()[]{}`." );
           if( invalid_pos == std::string::npos )
             break;
           tmp_str.replace( invalid_pos, 1, 1, '_' );

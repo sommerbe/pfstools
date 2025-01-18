@@ -111,7 +111,7 @@ DisplayFunctionLUT::DisplayFunctionLUT( const char *file_name ) : pix_lut( NULL 
   const size_t max_line = 100;
   char buf[max_line];
 
-  int i = 0;
+  size_t i = 0;
   while( fgets( buf, max_line, fh ) != NULL ) {
     float p_buf, L_buf;
     if( sscanf( buf, "%f%*[ ,;]%f\n", &p_buf, &L_buf ) != 2 )

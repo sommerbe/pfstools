@@ -135,9 +135,9 @@ void readFrames( int argc, char* argv[] )
     
     //fprintf(stderr, "%s", VERBOSE_STR.c_str());
     
-    for( int r = 0; r < imImage.rows(); r++ )
+    for( size_t r = 0; r < imImage.rows(); r++ )
       {
-	for( int c = 0; c < imImage.columns(); c++ )
+	for( size_t c = 0; c < imImage.columns(); c++ )
 	  {
 	    int subcol=1;
 	    int subrow=1;

@@ -781,7 +781,7 @@ float PictureIO::getDynamicRange(void) {
 	std::vector<unsigned int> svec;
 	svec.push_back(val);
 	
-	for( int i = 1; i < vec.size(); i++) {
+	for( size_t i = 1; i < vec.size(); i++) {
 		
 		if( vec[i] != val) {
 			svec.push_back(vec[i]);

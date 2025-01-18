@@ -88,8 +88,8 @@ struct FilePattern
                                       firstFrame( 0 ),
                                       lastFrame( MAX_FRAME ),
                                       skipMissingFrames( false ),
-                                      currentFrame( 0 ),
-                                      everyNthFrame( 1 )
+                                      everyNthFrame( 1 ),
+                                      currentFrame( 0 )
   {
     isPattern = strstr( pattern, "%" ) != NULL;
     if( !strcmp( pattern, "-" ) ) stdinout = n_stdinout;

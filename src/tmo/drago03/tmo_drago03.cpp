@@ -81,7 +81,7 @@ void tmo_drago03(unsigned int width, unsigned int height,
 
   int nrows = Y->getRows();			// image size
   int ncols = Y->getCols();
-  assert(nrows==L->getRows() && ncols==L->getCols() );
+  assert(nrows==(int)L->getRows() && ncols==(int)L->getCols() );
 
   maxLum /= avLum;							// normalize maximum luminance by average luminance
 

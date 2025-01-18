@@ -153,9 +153,7 @@ void writeFrames( int argc, char* argv[] )
   }
  
   pfs::DOMIO pfsio;
- 
-  bool firstFrame = true;
- 
+  
   while( true ) {
     pfs::Frame *frame = pfsio.readFrame( stdin );
     if( frame == NULL ) {

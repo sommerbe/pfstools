@@ -99,7 +99,7 @@ public:
       min_val = numeric_limits<T>::max();
       max_val = numeric_limits<T>::min();
 
-      for( int k=0; k < d_size; k++ ) {
+      for( size_t k=0; k < d_size; k++ ) {
         if( data[k] > max_val ) max_val = data[k];
         if( data[k] < min_val ) min_val = data[k];
       }
@@ -120,7 +120,7 @@ public:
     }
 
     if( reject_outofrange ) {
-      for( int k=0; k < d_size; k++ ) {      
+      for( size_t k=0; k < d_size; k++ ) {      
         int ind = floor( (data[k]-min_val) / (max_val-min_val) * (float)bins );
         if( ind < 0 )
           continue;
@@ -129,7 +129,7 @@ public:
         n[ind]++;
       }    
     } else {
-      for( int k=0; k < d_size; k++ ) {      
+      for( size_t k=0; k < d_size; k++ ) {      
         int ind = floor( (data[k]-min_val) / (max_val-min_val) * (float)bins );
         if( ind < 0 ) {
           n[0]++;
@@ -172,15 +172,15 @@ public:
   UniformArrayLUT( size_t lut_size, const float *x_i, float *y_i = NULL ) : x_i( x_i ), lut_size( lut_size ), delta( x_i[1]-x_i[0] )
   {
     if( y_i == NULL ) {
-      this->y_i = new float[lut_size];
       own_y_i = true;
+      this->y_i = new float[lut_size];
     } else {
-      this->y_i = y_i;
       own_y_i = false;
+      this->y_i = y_i;
     }
   }
 
-  UniformArrayLUT() : x_i( 0 ), y_i(0), lut_size( 0 ), delta( 0. ) {}
+  UniformArrayLUT() : x_i( 0 ), lut_size( 0 ), delta( 0. ), y_i(0) {}
 
   UniformArrayLUT(const UniformArrayLUT& other) : x_i( other.x_i ), lut_size( other.lut_size ), delta( other.delta )
   {
@@ -340,7 +340,7 @@ public:
   {
     hist.compute( data, d_size, bin_n, 1, -1, false );
     // Compute cummulative histogram
-    for( int k = 1; k < bin_n; k++ )
+    for( size_t k = 1; k < bin_n; k++ )
       hist.n[k] += hist.n[k-1];
 
 //    cerr << "d_size: " << d_size << "  hist.n: " << hist.n[bin_n-1] << "\n";
@@ -441,14 +441,14 @@ void create_from_template( std::ostream &outfs, const char *template_file_name,
     int pos = 0;
 
     while( true ) {
-      int find_pos = line_str.find_first_of( '@', pos );
+      size_t find_pos = line_str.find_first_of( '@', pos );
       if( find_pos == std::string::npos ) {
         outfs << line_str.substr( pos, std::string::npos );
         break;
       }
 
       bool replaced = false;
-      int end_marker = line_str.find_first_of( "@[", find_pos+1 );
+      size_t end_marker = line_str.find_first_of( "@[", find_pos+1 );
       if( end_marker != std::string::npos ) {
         
         for( int k = 0; pattern_list[k].pattern != NULL; k++ )
@@ -458,7 +458,7 @@ void create_from_template( std::ostream &outfs, const char *template_file_name,
 
             std::string parameter;
             if( line_str[end_marker] == '[' ) {              
-              int param_endmarker = line_str.find_first_of( ']', end_marker+1 );
+              size_t param_endmarker = line_str.find_first_of( ']', end_marker+1 );
               if( param_endmarker == std::string::npos )
                 throw pfs::Exception( "Non-closed bracker in the replacement keyword" );
               parameter = line_str.substr( end_marker+1, param_endmarker-end_marker-1 );
@@ -568,7 +568,7 @@ public:
       for( int k=0; k < columns; k++ ) {
         // Skip white spaces
         while( line_str[pos] == ' ' || line_str[pos] == '\t' ) pos++;
-        int new_pos = line_str.find_first_of( ',', pos );
+        size_t new_pos = line_str.find_first_of( ',', pos );
         size_t len;
         if( new_pos == std::string::npos ) {
           if( k != columns-1 ) {

@@ -197,7 +197,7 @@ void CompressionTMO::tonemap( const float *R_in, const float *G_in, float *B_in,
     }
 
     // Apply the tone-curve
-    for( int pp = 0; pp < pix_count; pp++ ) {
+    for( size_t pp = 0; pp < pix_count; pp++ ) {
         R_out[pp] = lut.interp( safelog10f(R_in[pp]) );
         G_out[pp] = lut.interp( safelog10f(G_in[pp]) );
         B_out[pp] = lut.interp( safelog10f(B_in[pp]) );

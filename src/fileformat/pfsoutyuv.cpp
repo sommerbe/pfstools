@@ -65,7 +65,7 @@ class MetaDataFrameFileIterator : pfs::FrameFileIteratorImpl
   MetaDataFrameFileIterator( int &argc, char* argv[], const char *fopenMode,
     const char *fileNamePrefix, FILE *stdinout,
     const char *optstring, const struct option *getopt_long, unsigned int width, unsigned int height, unsigned int bitdepth, const char * colorSpace, const char * chromaFormat, int fps) : 
-    pfs::FrameFileIteratorImpl(argc, argv, fopenMode, fileNamePrefix, stdinout, optstring, getopt_long), bitdepth(bitdepth), colorSpace(colorSpace), width(width), height(height), chromaFormat(chromaFormat), fps(fps) 
+    pfs::FrameFileIteratorImpl(argc, argv, fopenMode, fileNamePrefix, stdinout, optstring, getopt_long), width(width), height(height),  bitdepth(bitdepth), fps(fps), colorSpace(colorSpace), chromaFormat(chromaFormat) 
   {
      
   }
@@ -157,7 +157,7 @@ enum DownsampleFilter{f0, f1};
 
 void printHelp()
 {
-  std::cerr << PROG_NAME " [--verbose] [--quiet] [--bitdepth] [--colorspace] [--downsample-filter] [--chroma-format]" 
+  std::cerr << PROG_NAME " [--verbose] [--bitdepth] [--colorspace] [--downsample-filter] [--chroma-format]" 
             << std::endl
             << "See man page for more information." << std::endl;
 }
@@ -242,7 +242,7 @@ void writeFrames( int argc, char* argv[] )
   unsigned int width; 
   unsigned int height;
   unsigned int fps = 0;
-  bool quiet = false;
+  //bool quiet = false;
   bool downscale_chroma = true;
   pfs::ColorSpace opt_colorspace = pfs::CS_INVALID;
   DownsampleFilter downsampleFilter = f0;
@@ -257,7 +257,7 @@ void writeFrames( int argc, char* argv[] )
     { "verbose", no_argument, NULL, 'v' },
     { "bitdepth", required_argument, NULL, 'b' },
     { "colourspace", required_argument, NULL, 'c' },
-    { "quiet", no_argument, NULL, 'q' },
+  //  { "quiet", no_argument, NULL, 'q' },
     { "downsample-filter", required_argument, NULL, 'a'},
     { "chroma-format", required_argument, NULL, 'f'},
     { "srgb-input", no_argument, NULL, 's'},
@@ -308,9 +308,9 @@ void writeFrames( int argc, char* argv[] )
       throw pfs::Exception( "Unrecognized colorspace name" );
     }
     break;
-    case 'q':
-      quiet = true;
-      break;
+    //case 'q':
+    //  quiet = true;
+    //  break;
     case 's':
       opt_srgb_input = true;
       break;
